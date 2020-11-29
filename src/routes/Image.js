@@ -18,21 +18,33 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * ALL METHODS FOR IMAGE GENERATION IS GET
+ * ALL METHODS FOR IMAGE GENERATION IS POST
  */
+
 router.post('/worsethanhitler', async (req, res) => {
   generators.WorseThanHitler(req, res)
-    .then((a) => {
-      res.status(200).send(a);
-    })
+    .then((a) => res.status(200).send(a))
     .catch((e) => {
       switch(e) {
-        case 'NoAvatarURL':
-          return res.status(422).send('No Avatar URL provided');
+        case 'InvalidBody':
+          return res.status(422).send('InvalidBody');
         default:
           return res.status(500).send(e);
       }
     });
+});
+
+router.post('/surprisedscarlett', async (req, res) => {
+  generators.SurprisedScarlett(req, res)
+  .then((a) => res.status(200).send(a))
+  .catch((e) => {
+    switch(e) {
+      case 'InvalidBody':
+        return res.status(422).send('InvalidBody');
+      default:
+        return res.status(500).send(e);
+    }
+  });
 });
 
 
